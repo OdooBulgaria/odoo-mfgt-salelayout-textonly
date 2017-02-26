@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-<data>
-<template id="report_sale_layouted_nonumbers" inherit_id="sale_layout.report_sale_layouted">
-    <xpath expr="//t/t[@t-as='l']/tr" position="replace">
-                            <td>
-                               <span  t-field="l.name"/>
-                            </td>
-    <t t-if="p['category'] and p['category'].name not in 'Flugzeugangaben'">
-
-                            <td class="text-right">
-                                <span t-field="l.product_uom_qty"/>
-                                <span groups="product.group_uom" t-field="l.product_uom"/>
-                            </td>
-                            <td class="text-right">
-                                <span t-field="l.price_unit"/>
-                            </td>
-                            <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
-                                <span t-field="l.discount"/>
-                            </td>
-                            <td class="text-right">
-                                <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
-                            </td>
-                            <td class="text-right">
-                                <span t-field="l.price_subtotal"
-                                    t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
-                            </td>
-    </t>
-    </xpath>
-</template>
-</data>
+  <data>
+    <template id="report_sale_layouted_nonumbers" inherit_id="sale_layout.report_sale_layouted">
+      <xpath expr="//t/t[@t-as='l']/tr" position="replace">
+        <tr>
+          <td>
+            <span t-field="l.name"/>
+          </td>
+          <t t-if="p['category'] and p['category'].name in 'Flugzeugangaben'">
+            <td colspan="5"/>
+          </t>
+          <t t-if="not p['category'] or p['category'].name not in 'Flugzeugangaben'">
+            <td class="text-right">
+              <span t-field="l.product_uom_qty"/>
+              <span groups="product.group_uom" t-field="l.product_uom"/>
+            </td>
+            <td class="text-right">
+              <span t-field="l.price_unit"/>
+            </td>
+            <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+              <span t-field="l.discount"/>
+            </td>
+            <td class="text-right">
+              <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
+            </td>
+            <td class="text-right">
+              <span t-field="l.price_subtotal" t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+            </td>
+          </t>
+        </tr>
+      </xpath>
+    </template>
+  </data>
 </openerp>
