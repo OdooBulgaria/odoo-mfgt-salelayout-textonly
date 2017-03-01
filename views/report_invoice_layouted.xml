@@ -10,7 +10,7 @@
           <t t-if="p['category'] and p['category'].name in 'Flugzeugangaben'">
             <td colspan="5"/>
           </t>
-          <t t-if="p['category'] and p['category'].name not in 'Flugzeugangaben'">
+          <t t-if="not p['category'] or p['category'].name not in 'Flugzeugangaben'">
             <td class="text-right">
               <span t-field="l.quantity"/>
               <span t-field="l.uom_id" groups="product.group_uom"/>
